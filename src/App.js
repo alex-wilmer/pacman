@@ -20,7 +20,7 @@ function App() {
 
       <div>
         {selected && (
-          <img src={selected.image} />
+          <img src={selected.image} alt="character" />
         )}
 
       </div>
