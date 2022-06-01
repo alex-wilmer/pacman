@@ -1,23 +1,38 @@
-import logo from './logo.svg';
+import { useState, useEffect } from 'react'
 import './App.css';
 
 function App() {
+  let [characters, setCharacters] = useState([])
+  let [selected, setSelected] = useState(null)
+
+  useEffect(() => {
+    async function getCharacters() {
+      let response = await fetch('https://rickandmortyapi.com/api/character')
+        .then(response => response.json())
+
+      setCharacters(response.results)
+    }
+    getCharacters()
+  })
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to hello reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>sup pacmannnnnn2111!</h1>
+
+      <div>
+        {selected && (
+          <img src={selected.image} />
+        )}
+
+      </div>
+
+      <div>
+        {characters.map(x => (
+          <div key={x.id}>
+            <button onClick={() => setSelected(x)}>{x.name}</button>
+          </div>
+        ))}
+      </div>
+
     </div>
   );
 }
